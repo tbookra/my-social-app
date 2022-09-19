@@ -1,47 +1,47 @@
 export const Users = [
   {
     id: 1,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb1",
   },
   {
     id: 2,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb2",
   },
   {
     id: 3,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb3",
   },
   {
     id: 4,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb4",
   },
   {
     id: 5,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb5",
   },
   {
     id: 6,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb6",
   },
   {
     id: 7,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb7",
   },
   {
     id: 8,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb8",
   },
   {
     id: 9,
-    profilePicture: "assets/pic.jpg",
+    profilePicture: "pic.jpg",
     username: "tomerb9",
   },
 ];
@@ -50,7 +50,7 @@ export const Posts = [
   {
     id: 1,
     desc: "some description",
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
     date: "5 min ago",
     userId: 1,
     like: 33,
@@ -63,7 +63,7 @@ export const Posts = [
     userId: 2,
     like: 2,
     comment: 29,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 3,
@@ -72,7 +72,7 @@ export const Posts = [
     userId: 3,
     like: 21,
     comment: 5,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 4,
@@ -81,7 +81,7 @@ export const Posts = [
     userId: 4,
     like: 3,
     comment: 5,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 5,
@@ -90,7 +90,7 @@ export const Posts = [
     userId: 5,
     like: 12,
     comment: 1,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 6,
@@ -99,7 +99,7 @@ export const Posts = [
     userId: 6,
     like: 353,
     comment: 91,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 7,
@@ -108,7 +108,7 @@ export const Posts = [
     userId: 7,
     like: 3,
     comment: 9,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 8,
@@ -117,7 +117,7 @@ export const Posts = [
     userId: 8,
     like: 33,
     comment: 2,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
   {
     id: 9,
@@ -126,6 +126,6 @@ export const Posts = [
     userId: 9,
     like: 3,
     comment: 0,
-    photo: "assets/pic.jpg",
+    photo: "pic.jpg",
   },
 ];
