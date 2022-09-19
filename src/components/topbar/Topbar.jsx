@@ -1,44 +1,61 @@
-import './topbar.css'
-import {Search, Person, Chat, Notifications} from '@material-ui/icons'
+import "./topbar.css";
+import { useSelector } from "react-redux";
+import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 function Topbar() {
+  const { user: loggedUser } = useSelector((state) => state.auth);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
-    <div className='topbarContainer'>
+    <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">My Social</span>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <span className="logo">My Social</span>
+        </Link>
       </div>
       <div className="topbarCenter">
         <div className="searchBar">
-            <Search className='searchIcon' />
-            <input type="text" placeholder='Search for friends, post or video' className="searchInput" />
+          <Search className="searchIcon" />
+          <input
+            type="text"
+            placeholder="Search for friends, post or video"
+            className="searchInput"
+          />
         </div>
       </div>
       <div className="topbarRight">
         <div className="topbarLinks">
-            <div className="topbarLink">Homepage</div>
-            <div className="topbarLink">Timeline</div>
-        
-        
-      </div>
-      <div className="topbarIcons">
-        <div className="topbarIconItem">
-            <Person  />
+          <div className="topbarLink">Homepage</div>
+          <div className="topbarLink">Timeline</div>
+        </div>
+        <div className="topbarIcons">
+          <div className="topbarIconItem">
+            <Person />
             <div className="topbarIconBadge">1</div>
-        </div>
-        <div className="topbarIconItem">
-            <Chat  />
+          </div>
+          <div className="topbarIconItem">
+            <Chat />
             <div className="topbarIconBadge">2</div>
-        </div>
-        <div className="topbarIconItem">
-            <Notifications  />
+          </div>
+          <div className="topbarIconItem">
+            <Notifications />
             <div className="topbarIconBadge">3</div>
+          </div>
         </div>
-        </div>
-        <img src="/assets/pic.jpg" alt="" className="topbarImage" />
-     
+        <Link to={`/profile/${loggedUser.username}`}>
+        <img
+          src={
+            loggedUser.profilePicture
+              ? PF + loggedUser.profilePicture
+              : PF + "avatar-profile.jpg"
+          }
+          alt=""
+          className="topbarImage"
+        />
+        </Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default Topbar
+export default Topbar;

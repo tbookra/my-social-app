@@ -4,7 +4,7 @@ const Users = require("../models/Users");
 
 router.post("/", async (req, res) => {
   const newPost = new Posts(req.body);
-  try {
+  try { 
     const savedPost = await newPost.save();
     res.status(201).json({ success: savedPost });
   } catch (error) {
@@ -70,18 +70,30 @@ router.get("/:postId", async (req, res) => {
     res.status(500).json({ error });
   }
 });
-
+// getting users posts and his followings posts
 router.get("/timeline/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
     const currentUser = await Users.findById(userId);
     const userPosts = await Posts.find({ userId: currentUser._id }); // all the posts of the current user
-    const friendsPosts = await Promise.all(  // all the post of his followings
-        currentUser.followings.map((friendId)=>{
-            return Posts.find({userId:friendId})
-        })
-    )
-    res.status(200).json({ success: [...userPosts,...friendsPosts] });
+    const friendsPosts = await Promise.all(
+      // all the post of his followings
+      currentUser.followings.map((friendId) => {
+        return Posts.find({ userId: friendId });
+      })
+    );
+    res.status(200).json({ success: [...userPosts, ...friendsPosts] });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+// getting all users posts
+router.get("/profile/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const user = await Users.findOne({ username });
+    const posts = await Posts.find({ userId: user._id });
+    res.status(200).json({ success: posts });
   } catch (error) {
     res.status(500).json({ error });
   }

@@ -16,7 +16,7 @@ router.put("/:id", async (req, res) => {
     }
     try {
       const user = await Users.findByIdAndUpdate(id, { $set: req.body });
-      res.status(200).json("account has been updated");
+      res.status(200).json({ success: "account has been updated" });
     } catch (error) {
       return res.status(500).json(error);
     }
@@ -31,7 +31,7 @@ router.delete("/:id", async (req, res) => {
   if (id === userId || isAdmin) {
     try {
       const user = await Users.findByIdAndDelete(id);
-      res.status(200).json("Account was deleted");
+      res.status(200).json({ success: "Account was deleted" });
     } catch (error) {
       return res.status(500).json(error);
     }
@@ -40,18 +40,41 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/", async (req, res) => {
+  const { userId, username } = req.query;
   try {
-    const user = await Users.findById(id);
+    const user = userId
+      ? await Users.findById(userId)
+      : await Users.findOne({ username });
     if (user) {
       const { password, updatedAt, ...rest } = user._doc;
-      res.status(200).json(rest);
+      res.status(200).json({ success: rest });
     } else {
       res.status(404).json("no such user");
     }
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+router.get("/friends/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await Users.findById(userId);
+    const friends = await Promise.all(
+      user.followings.map((friendId) => Users.findById(friendId))
+    );
+    res.status(200).json({
+      success: friends.map((friend) => {
+        return {
+          _id: friend._id,
+          username: friend.username,
+          profilePicture: friend.profilePicture,
+        };
+      }),
+    });
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });
 
@@ -62,12 +85,13 @@ router.put("/:id/follow", async (req, res) => {
     try {
       const userToFollow = await Users.findById(id);
       const currentUser = await Users.findById(userId);
-      if(!userToFollow.followers.includes(userId)){
-        await userToFollow.updateOne({$push:{followers:userId}})
-        await currentUser.updateOne({$push:{followings:id}})
-        res.status(200).json({success: "user has followed"})
+
+      if (!userToFollow.followers.includes(userId)) {
+        await userToFollow.updateOne({ $push: { followers: userId } });
+        await currentUser.updateOne({ $push: { followings: id } });
+        res.status(200).json({ success: "user has followed" });
       } else {
-        res.status(403).json({error: "this user is already followed by you"})
+        res.status(403).json({ error: "this user is already followed by you" });
       }
     } catch (error) {
       res.status(500).json(error);
@@ -83,12 +107,14 @@ router.put("/:id/unfollow", async (req, res) => {
     try {
       const userToFollow = await Users.findById(id);
       const currentUser = await Users.findById(userId);
-      if(userToFollow.followers.includes(userId)){
-        await userToFollow.updateOne({$pull:{followers:userId}})
-        await currentUser.updateOne({$pull:{followings:id}})
-        res.status(200).json({success: "user has unfollowed"})
+      if (userToFollow.followers.includes(userId)) {
+        await userToFollow.updateOne({ $pull: { followers: userId } });
+        await currentUser.updateOne({ $pull: { followings: id } });
+        res.status(200).json({ success: "user has unfollowed" });
       } else {
-        res.status(403).json({error: "this user is already unfollowed by you"})
+        res
+          .status(403)
+          .json({ error: "this user is already unfollowed by you" });
       }
     } catch (error) {
       res.status(500).json(error);
