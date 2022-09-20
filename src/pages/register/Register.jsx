@@ -1,20 +1,15 @@
 import { useRef } from "react";
 import { socialServer } from "../../services";
-import { submitFormLogics } from "../../redux/actions/authActions";
-import { useDispatch, useSelector } from "react-redux";
-import { CircularProgress } from "@material-ui/core";
 import "./register.css";
 import { useHistory } from "react-router";
 
 export default function Register() {
-  const dispatch = useDispatch();
   const history = useHistory()
 
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordAgainRef = useRef();
-  const { isFetching } = useSelector((state) => state.auth);
 
 const handleSubmit = async (e) => {
   e.preventDefault()

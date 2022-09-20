@@ -6,3 +6,6 @@ export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_ERROR = "POST_ERROR";
 export const FOLLOW = "FOLLOW";
 export const UNFOLLOW = "UNFOLLOW";
+export const IMG_UPLOAD = "IMG_UPLOAD";
+export const IMG_UPLOAD_ERROR = "IMG_UPLOAD_ERROR";
+export const IMG_UPLOAD_SUCCESS = "IMG_UPLOAD_SUCCESS";

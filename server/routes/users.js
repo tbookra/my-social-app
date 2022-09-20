@@ -7,7 +7,7 @@ router.put("/:id", async (req, res) => {
   let { userId, password, isAdmin } = req.body;
   if (id === userId || isAdmin) {
     if (password) {
-      try {
+      try { 
         const salt = await bcrypt.salt(10);
         password = await bcrypt.hash(password, salt);
       } catch (error) {
@@ -15,6 +15,8 @@ router.put("/:id", async (req, res) => {
       }
     }
     try {
+      console.log("id",id);
+      console.log("req.body",req.body);
       const user = await Users.findByIdAndUpdate(id, { $set: req.body });
       res.status(200).json({ success: "account has been updated" });
     } catch (error) {
